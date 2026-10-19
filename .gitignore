@@ -1,0 +1,24 @@
+# Dependencies
+/node_modules/
+
+# Framework caches and generated output
+/.next/
+/.vinext/
+/.wrangler/
+/.cache/
+/dist/
+/build/
+
+# TypeScript build info and macOS metadata
+*.tsbuildinfo
+.DS_Store
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+!.dev.vars.*.example
