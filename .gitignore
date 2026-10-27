@@ -1,5 +1,6 @@
 # Dependencies
 /node_modules/
+/.sites-runtime/
 
 # Framework caches and generated output
 /.next/
