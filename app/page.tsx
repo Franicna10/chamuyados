@@ -6,6 +6,7 @@ import { PlayerAvatar as Avatar } from "@/components/PlayerAvatar";
 import { answerOptions, createRound, gameCategories, type Question } from "./game-data";
 
 type Screen = "home" | "profile" | "help" | "ranking" | "mode" | "categories" | "question" | "feedback" | "result";
+type FinishReason = "completed" | "timeout" | "abandoned";
 type MatchResult = {
   id: string;
   playedAt: string;
@@ -97,7 +98,7 @@ export default function GameApp() {
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [timeLeft, setTimeLeft] = useState(60);
   const [timerActive, setTimerActive] = useState(false);
-  const [timeExpired, setTimeExpired] = useState(false);
+  const [finishReason, setFinishReason] = useState<FinishReason | null>(null);
   const [lastResult, setLastResult] = useState<MatchResult | null>(null);
   const [shareMessage, setShareMessage] = useState("");
   const savedMatchesRef = useRef<MatchResult[]>([]);
@@ -117,13 +118,13 @@ export default function GameApp() {
     navigate(paths[nextScreen], { replace });
   }, [navigate]);
 
-  const finishGame = useCallback((expired: boolean) => {
+  const finishGame = useCallback((reason: FinishReason) => {
     if (finished.current) return;
     finished.current = true;
     deadline.current = null;
     setTimerActive(false);
-    setTimeExpired(expired);
-    if (expired) setTimeLeft(0);
+    setFinishReason(reason);
+    if (reason === "timeout") setTimeLeft(0);
     const correct = correctCountRef.current;
     const incorrect = incorrectCountRef.current;
     const unanswered = Math.max(0, questions.length - correct - incorrect);
@@ -158,7 +159,7 @@ export default function GameApp() {
     const interval = window.setInterval(() => {
       const remaining = Math.max(0, Math.ceil(((deadline.current ?? Date.now()) - Date.now()) / 1000));
       setTimeLeft(remaining);
-      if (remaining === 0) finishGame(true);
+      if (remaining === 0) finishGame("timeout");
     }, 250);
     return () => window.clearInterval(interval);
   }, [finishGame, timerActive]);
@@ -196,7 +197,7 @@ export default function GameApp() {
     answeredQuestions.current = new Set();
     finished.current = false;
     setTimeLeft(60);
-    setTimeExpired(false);
+    setFinishReason(null);
     setLastResult(null);
     deadline.current = Date.now() + 60_000;
     setTimerActive(true);
@@ -206,7 +207,7 @@ export default function GameApp() {
   const answer = (index: number) => {
     if (finished.current || answeredQuestions.current.has(questionIndex) || selected !== null) return;
     if (deadline.current !== null && Date.now() >= deadline.current) {
-      finishGame(true);
+      finishGame("timeout");
       return;
     }
     answeredQuestions.current.add(questionIndex);
@@ -230,7 +231,7 @@ export default function GameApp() {
       setSelected(null);
       go("question");
     } else {
-      finishGame(false);
+      finishGame("completed");
     }
   };
 
@@ -323,7 +324,7 @@ export default function GameApp() {
 
       {showQuestion && <section className="dark-screen question-screen">
         <div className="game-top">
-          <button aria-label="Volver a categorías" onClick={() => go("categories")}>✕</button>
+          <button aria-label="Salir de la partida" title="Salir de la partida" onClick={() => finishGame("abandoned")}>✕</button>
           <div><span>Pregunta {questionIndex + 1} de {questions.length}</span><div className="question-progress" role="progressbar" aria-valuenow={questionIndex + 1} aria-valuemin={1} aria-valuemax={questions.length}><i style={{ width: `${((questionIndex + 1) / questions.length) * 100}%` }} /></div></div>
           <div className="mini-score">⭐ {score}</div>
         </div>
@@ -348,8 +349,20 @@ export default function GameApp() {
 
       {screen === "result" && <section className="dark-screen result-screen">
         <div className="result-emoji" aria-hidden="true">🎉🌱💞</div>
-        <h1>{timeExpired ? "¡Se terminó el tiempo!" : "¡Partida terminada!"}</h1>
-        <p>{timeExpired ? "El reloj llegó a cero. Acá está tu resultado." : "Una ronda más para afinar el radar."}</p>
+        <h1>
+          {finishReason === "timeout"
+            ? "¡Se terminó el tiempo!"
+            : finishReason === "abandoned"
+              ? "Saliste de la partida"
+              : "¡Partida terminada!"}
+        </h1>
+        <p>
+          {finishReason === "timeout"
+            ? "El reloj llegó a cero. Acá está tu resultado."
+            : finishReason === "abandoned"
+              ? "La ronda se cerró y el tiempo se detuvo. Tus respuestas ya dadas se conservaron."
+              : "Una ronda más para afinar el radar."}
+        </p>
         <div className="final-score"><strong>{lastResult?.score ?? score}</strong><span>puntos</span></div>
         <div className="stats">
           <div><b>{lastResult?.correct ?? correctCount}</b><span>Correctas</span></div>
