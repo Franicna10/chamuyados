@@ -18,10 +18,11 @@
 
 1. Desde el inicio, encontrá cómo empezar y configurá un perfil.
 2. Buscá la ayuda y explicá con tus palabras cuánto dura una partida.
-3. Entrá al modo Solo, elegí una categoría y empezá una ronda.
+3. Elegí Juego clásico, seleccioná una categoría y empezá una ronda.
 4. Respondé una pregunta, leé la devolución y avanzá a la siguiente. Comentá si entendés qué opción era correcta y por qué.
-5. Encontrá el tiempo restante, terminá una ronda si el reloj lo permite y localizá el resultado y el ranking.
-6. Usá atrás/adelante del navegador para comprobar si la navegación te resulta clara.
+5. Elegí Farándula argentina: ¿quién lo dijo?, probá una dificultad, escribí una respuesta y revisá la devolución.
+6. Encontrá el tiempo restante, terminá una ronda si el reloj lo permite y localizá los rankings separados.
+7. Usá atrás/adelante del navegador para comprobar si la navegación te resulta clara.
 
 ## Registro
 
@@ -33,6 +34,7 @@
 | 4 | __________ | __________________________________ | __________________________________ |
 | 5 | __________ | __________________________________ | __________________________________ |
 | 6 | __________ | __________________________________ | __________________________________ |
+| 7 | __________ | __________________________________ | __________________________________ |
 
 ### Observaciones generales
 

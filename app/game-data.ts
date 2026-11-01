@@ -1,11 +1,17 @@
 export const answerOptions = ["Chamuyo", "Red flag", "Green flag"] as const;
 export type AnswerOption = (typeof answerOptions)[number];
-export const iconModeCategory = "Modo íconos argentinos";
 
 export type Question = {
   title: string;
   correct: AnswerOption;
   tip: string;
+};
+
+export type QuoteQuestion = {
+  title: string;
+  speaker: string;
+  acceptedAnswers: string[];
+  clue: "Cine" | "Televisión" | "Fútbol";
 };
 
 export type GameCategory = {
@@ -21,7 +27,6 @@ export const gameCategories: GameCategory[] = [
   { icon: "💘", title: "Primera cita", description: "El encuentro cara a cara" },
   { icon: "🤔", title: "¿Qué responderías?", description: "Elegí tu mejor jugada" },
   { icon: "🔥", title: "Frases chamuyeras", description: "Palabras y hechos" },
-  { icon: "🇦🇷", title: iconModeCategory, description: "Humor y vínculos bien de acá" },
 ];
 
 const question = (title: string, correct: AnswerOption, tip: string): Question => ({
@@ -123,24 +128,6 @@ const phraseQuestions: Question[] = [
   question("«¿Te puedo dar un beso?» y recibe un no con naturalidad.", "Green flag", "Preguntar y respetar la respuesta cuida el consentimiento."),
 ];
 
-const iconQuestions: Question[] = [
-  question("En una juntada, te trabás contando una anécdota y tu cita se ríe con vos, sin apurarte ni exponerte.", "Green flag", "El humor compartido suma cuando no se usa para burlarse ni presionar."),
-  question("Te promete una noche de película con reserva y limusina, pero hace tres semanas que no concreta ni un café.", "Chamuyo", "La producción puede ser espectacular; si nunca se convierte en un plan real, queda en puro verso."),
-  question("En la primera salida quiere elegir tu ropa y se ofende cuando preferís ir como te sentís cómoda.", "Red flag", "Opinar sobre tu ropa como una orden y enojarse si no obedecés es control, no cariño."),
-  question("Te dice que sos «la única persona que entiende su alma», pero solo te escribe cuando necesita que le resuelvas algo.", "Chamuyo", "Una frase de novela no compensa que el vínculo aparezca solo por conveniencia."),
-  question("Te pide una foto de cada lugar al que vas y se enoja si tardás en contestar mientras estás con amistades.", "Red flag", "Exigir pruebas y respuestas inmediatas convierte la comunicación en vigilancia."),
-  question("Arma una cita sencilla, te pregunta qué te gusta y te avisa de antemano cuánto cuesta el plan.", "Green flag", "La claridad y la consideración pueden ser más románticas que cualquier despliegue."),
-  question("Te habla de un futuro juntos con casa en la costa y perro con nombre, pero esquiva acordar una segunda cita.", "Chamuyo", "Fantasear en grande no es lo mismo que dar un paso concreto para conocerse."),
-  question("Le decís que no querés subir a su departamento después de cenar y te acompaña hasta tu transporte, sin insistir.", "Green flag", "Acepta tu decisión y prioriza que vuelvas bien, sin convertir el cuidado en una deuda."),
-  question("Te pregunta con quién hablás cada vez que vibra el celular y te exige mostrarle la pantalla.", "Red flag", "Revisar tus conversaciones y pedir explicaciones constantes son señales de control."),
-  question("Asegura que va a reservar el lugar más exclusivo de la ciudad, pero nunca define día ni horario.", "Chamuyo", "La promesa rimbombante no vale más que un plan concreto que sí se cumple."),
-  question("Le contás que querés ir despacio y te responde que no hay apuro; después mantiene ese cuidado en los hechos.", "Green flag", "Escucha tu límite y sostiene el respeto más allá de la charla del momento."),
-  question("Te pide que canceles un viaje con tus amigas porque dice que una pareja debería hacer todo junta.", "Red flag", "Buscar que abandones tus vínculos y actividades propias es una forma de control."),
-  question("Te manda un audio diciendo que sos su destino, pero evita responder cuando preguntás qué tipo de vínculo busca.", "Chamuyo", "El lenguaje de película no reemplaza una conversación honesta sobre lo que quiere."),
-  question("Para celebrar que se conocen, prepara una playlist con canciones que ambos nombraron y te pregunta si te gustó.", "Green flag", "Un gesto personal y atento, sin esperar que le debas nada, es una señal linda."),
-  question("Se adjudica el derecho de decidir qué fotos podés subir y amenaza con dejarte si no las borrás.", "Red flag", "Amenazar para controlar tus redes cruza un límite; no es una prueba de amor."),
-];
-
 const categoryPools: Record<string, Question[]> = {
   "Chamuyo inicial": openingQuestions,
   "Red o Green Flag": regularQuestions,
@@ -148,8 +135,20 @@ const categoryPools: Record<string, Question[]> = {
   "Primera cita": dateQuestions,
   "¿Qué responderías?": responseQuestions,
   "Frases chamuyeras": phraseQuestions,
-  [iconModeCategory]: iconQuestions,
 };
+
+export const quoteQuestions: QuoteQuestion[] = [
+  { title: "¡Tres empanadas!", speaker: "Luis Brandoni, como Antonio Musicardi en Esperando la carroza", acceptedAnswers: ["Brandoni", "Luis Brandoni", "Antonio Musicardi"], clue: "Cine" },
+  { title: "Mamá, cortaste toda la luz", speaker: "Ricardo Fort", acceptedAnswers: ["Fort", "Ricardo Fort"], clue: "Televisión" },
+  { title: "Billetera mata galán", speaker: "Jacobo Winograd", acceptedAnswers: ["Jacobo", "Winograd", "Jacobo Winograd"], clue: "Televisión" },
+  { title: "Si querés llorar, llorá", speaker: "Moria Casán", acceptedAnswers: ["Moria", "Moria Casán"], clue: "Televisión" },
+  { title: "¡Carajo, mierda!", speaker: "Mirtha Legrand", acceptedAnswers: ["Mirtha Legrand"], clue: "Televisión" },
+  { title: "La pelota no se mancha", speaker: "Diego Maradona", acceptedAnswers: ["Diego", "Maradona", "Diego Maradona"], clue: "Fútbol" },
+  { title: "Me cortaron las piernas", speaker: "Diego Maradona", acceptedAnswers: ["Diego", "Maradona", "Diego Maradona"], clue: "Fútbol" },
+  { title: "¡Basta, chicos!", speaker: "Ricardo Fort", acceptedAnswers: ["Fort", "Ricardo Fort"], clue: "Televisión" },
+  { title: "La tenés adentro", speaker: "Diego Maradona, dirigida a Toti Pasman", acceptedAnswers: ["Diego", "Maradona", "Diego Maradona"], clue: "Fútbol" },
+  { title: "Hermosa mañana, ¿verdad?", speaker: "Guillermo Francella", acceptedAnswers: ["Guillermo Francella"], clue: "Cine" },
+];
 
 function shuffle<T>(items: T[]): T[] {
   const shuffled = [...items];

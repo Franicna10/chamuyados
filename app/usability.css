@@ -29,6 +29,98 @@ button:disabled {
   color: #e8ddf5;
 }
 
+.difficulty-picker {
+  margin: 24px auto 0;
+  padding: 22px;
+  border: 1px solid rgba(114, 72, 181, 0.14);
+  border-radius: 20px;
+  background: #fff;
+  text-align: left;
+}
+
+.difficulty-picker h2 {
+  margin: 0 0 14px;
+  font-size: 1.15rem;
+}
+
+.difficulty-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.difficulty-options button {
+  display: flex;
+  min-height: 82px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--ink);
+  background: #faf8fe;
+  text-align: left;
+  cursor: pointer;
+}
+
+.difficulty-options button.chosen {
+  border-color: var(--violet);
+  box-shadow: 0 0 0 2px rgba(140, 85, 242, 0.16);
+}
+
+.difficulty-options small {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.quote-answer-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.quote-answer-form label {
+  font-weight: 850;
+}
+
+.quote-answer-form input {
+  width: 100%;
+  padding: 15px 17px;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  border-radius: 13px;
+  color: var(--ink);
+  background: #fff;
+}
+
+.quote-answer-form input:focus {
+  border-color: #ffd05b;
+  outline: 3px solid rgba(255, 208, 91, 0.3);
+}
+
+.quote-clue {
+  display: inline-block;
+  margin: 0;
+  padding: 8px 13px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  font-weight: 800;
+}
+
+.result-mode {
+  margin: -8px 0 20px;
+  color: #e8ddf5;
+  font-weight: 800;
+}
+
+.difficulty-tabs {
+  grid-template-columns: repeat(3, 1fr);
+  width: min(380px, 100%);
+  margin-top: -14px;
+}
+
 @media (max-width: 650px) {
   .category-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -50,6 +142,10 @@ button:disabled {
 
   .stats div {
     min-height: 84px;
+  }
+
+  .difficulty-options {
+    grid-template-columns: 1fr;
   }
 
   .rank-list > div {

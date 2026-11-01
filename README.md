@@ -1,12 +1,12 @@
 # Chamuyados
 
-Chamuyados es un videojuego web de preguntas sobre chamuyo, chats, primeras citas y vínculos. Con situaciones cotidianas en tono argentino, quien juega decide si cada conducta es **Chamuyo**, **Red flag** o **Green flag**. La propuesta es lúdica y respetuosa: invita a conversar sobre límites, comunicación y cuidado, sin presentar una respuesta como regla para todos los vínculos.
+Chamuyados es un videojuego web de preguntas sobre chamuyo, chats, primeras citas, vínculos y cultura popular argentina. En el juego clásico, quien juega decide si cada conducta es **Chamuyo**, **Red flag** o **Green flag**. La propuesta es lúdica y respetuosa: invita a conversar sobre límites, comunicación y cuidado, sin presentar una respuesta como regla para todos los vínculos.
 
 ## Público y contenido
 
 Está pensado para personas jóvenes que quieran jugar una ronda breve y compartir situaciones reconocibles. No requiere una cuenta ni envía el historial a un servidor.
 
-Se puede elegir entre siete categorías:
+El juego clásico ofrece seis categorías:
 
 - Chamuyo inicial
 - Red o Green Flag
@@ -14,20 +14,19 @@ Se puede elegir entre siete categorías:
 - Primera cita
 - ¿Qué responderías?
 - Frases chamuyeras
-- Modo íconos argentinos
 
-Cada categoría tiene al menos diez situaciones; una ronda selecciona diez al azar y sin repetir dentro de esa ronda. Las situaciones son originales y no se atribuyen a personas reales. El modo íconos argentinos conserva su identidad local sin depender de citas.
+Cada categoría tiene al menos diez situaciones; una ronda selecciona diez al azar y sin repetir dentro de esa ronda. También está el modo **Farándula argentina: ¿quién lo dijo?**, una ronda de diez frases populares argentinas en la que hay que escribir quién las dijo.
 
 ## Mecánica
 
-1. Armá tu perfil y elegí el modo Solo.
-2. Elegí una categoría e iniciá una ronda de diez preguntas.
+1. Armá tu perfil y elegí **Juego clásico** o **Farándula argentina: ¿quién lo dijo?**.
+2. En el juego clásico, elegí una categoría e iniciá una ronda de diez preguntas. En Farándula argentina, elegí una dificultad y escribí una respuesta por frase.
 3. Tenés **75 segundos para toda la partida**. El reloj corre también mientras leés las devoluciones y no se reinicia al cambiar de pregunta.
-4. Elegí Chamuyo, Red flag o Green flag. Cada acierto suma 100 puntos; una pregunta respondida no puede puntuarse dos veces.
-5. Después de cada respuesta se muestran la opción correcta y una explicación breve.
+4. En el juego clásico elegí Chamuyo, Red flag o Green flag: cada acierto suma 100 puntos. En ¿Quién lo dijo?, Fácil muestra una pista breve del ámbito, Media no muestra pistas y Difícil no muestra pistas y suma 200 puntos por acierto. Cada situación o frase se responde una sola vez.
+5. Después de cada respuesta se muestra el resultado; en el modo de frases también se revela quién la dijo.
 6. Al completar la ronda o agotarse el tiempo, se informa el puntaje, respuestas correctas e incorrectas, preguntas sin responder, promedio de aciertos y rango.
 
-El promedio es el porcentaje de aciertos sobre las preguntas respondidas; las preguntas no respondidas se informan aparte. El ranking se arma con partidas reales guardadas en el `localStorage` del navegador actual, ordenadas por puntaje. No es un ranking compartido entre dispositivos.
+El promedio es el porcentaje de aciertos sobre las preguntas respondidas; las preguntas no respondidas se informan aparte. El ranking local, guardado en el `localStorage` del navegador actual, separa **Juego clásico** de **¿Quién lo dijo?**; este último también separa Fácil, Media y Difícil. Las partidas anteriores que no guardaban modo se conservan como Juego clásico. No es un ranking compartido entre dispositivos.
 
 ## Tecnologías
 
