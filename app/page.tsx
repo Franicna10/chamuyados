@@ -24,6 +24,7 @@ type MatchResult = {
 
 const avatars = ["🐱", "🦋", "🐸", "🦄", "🦉"];
 const colors = ["#ff4d86", "#8d5cff", "#26c6a1", "#ffad32", "#42a5f5"];
+const gameDurationSeconds = 75;
 const paths: Record<Screen, string> = {
   home: "/",
   profile: "/profile",
@@ -96,7 +97,7 @@ export default function GameApp() {
   const [score, setScore] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(gameDurationSeconds);
   const [timerActive, setTimerActive] = useState(false);
   const [finishReason, setFinishReason] = useState<FinishReason | null>(null);
   const [lastResult, setLastResult] = useState<MatchResult | null>(null);
@@ -196,10 +197,10 @@ export default function GameApp() {
     scoreRef.current = 0;
     answeredQuestions.current = new Set();
     finished.current = false;
-    setTimeLeft(60);
+    setTimeLeft(gameDurationSeconds);
     setFinishReason(null);
     setLastResult(null);
-    deadline.current = Date.now() + 60_000;
+    deadline.current = Date.now() + gameDurationSeconds * 1000;
     setTimerActive(true);
     go("question");
   };
@@ -279,7 +280,7 @@ export default function GameApp() {
           <p>Demostrá cuánto sabés del arte de chamuyar.</p>
           <ol>{[
             ["Elegí una categoría", "Hay situaciones distintas para cada tema."],
-            ["Respondé a tiempo", "Tenés 60 segundos para toda la partida, también durante las devoluciones."],
+            ["Respondé a tiempo", `Tenés ${gameDurationSeconds} segundos para toda la partida, también durante las devoluciones.`],
             ["Sumá puntos", "Cada respuesta correcta vale 100 puntos."],
             ["Aprendé y compará", "Después de cada respuesta vas a ver la solución y una explicación breve."],
           ].map(([title, detail], index) => <li key={title}><b>{index + 1}</b><div><strong>{title}</strong><span>{detail}</span></div></li>)}</ol>
@@ -318,7 +319,7 @@ export default function GameApp() {
         <div className="category-content">
           <h1>¿Sobre qué te chamuyamos?</h1><p>Elegí una categoría para arrancar.</p>
           <div className="category-grid">{gameCategories.map(({ icon, title, description }) => <button key={title} onClick={() => startGame(title)}><span aria-hidden="true">{icon}</span><strong>{title}</strong><small>{description}</small></button>)}</div>
-          <small className="game-note">10 preguntas · 60 segundos para toda la partida</small>
+          <small className="game-note">10 preguntas · {gameDurationSeconds} segundos para toda la partida</small>
         </div>
       </section>}
 

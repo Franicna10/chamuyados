@@ -22,7 +22,7 @@ Cada categoría tiene al menos diez situaciones; una ronda selecciona diez al az
 
 1. Armá tu perfil y elegí el modo Solo.
 2. Elegí una categoría e iniciá una ronda de diez preguntas.
-3. Tenés **60 segundos para toda la partida**. El reloj corre también mientras leés las devoluciones y no se reinicia al cambiar de pregunta.
+3. Tenés **75 segundos para toda la partida**. El reloj corre también mientras leés las devoluciones y no se reinicia al cambiar de pregunta.
 4. Elegí Chamuyo, Red flag o Green flag. Cada acierto suma 100 puntos; una pregunta respondida no puede puntuarse dos veces.
 5. Después de cada respuesta se muestran la opción correcta y una explicación breve.
 6. Al completar la ronda o agotarse el tiempo, se informa el puntaje, respuestas correctas e incorrectas, preguntas sin responder, promedio de aciertos y rango.
