@@ -8,7 +8,7 @@ import { answerOptions, createRound, gameCategories, quoteQuestions, type Questi
 type Screen = "home" | "profile" | "help" | "ranking" | "mode" | "categories" | "question" | "feedback" | "result";
 type FinishReason = "completed" | "timeout" | "abandoned";
 type GameMode = "classic" | "who-said";
-type Difficulty = "Fácil" | "Media" | "Difícil";
+type Difficulty = "Fácil" | "Difícil";
 type MatchResult = {
   id: string;
   playedAt: string;
@@ -27,13 +27,13 @@ type MatchResult = {
 };
 type StoredMatchResult = Omit<MatchResult, "gameMode" | "difficulty"> & {
   gameMode?: GameMode;
-  difficulty?: Difficulty | null;
+  difficulty?: Difficulty | "Media" | null;
 };
 
 const avatars = ["🐱", "🦋", "🐸", "🦄", "🦉"];
 const colors = ["#ff4d86", "#8d5cff", "#26c6a1", "#ffad32", "#42a5f5"];
 const gameDurationSeconds = 75;
-const difficulties: Difficulty[] = ["Fácil", "Media", "Difícil"];
+const difficulties: Difficulty[] = ["Fácil", "Difícil"];
 const quoteGameTitle = "Farándula argentina: ¿quién lo dijo?";
 const quoteRankingTitle = "¿Quién lo dijo?";
 const classicGameTitle = "Juego clásico";
@@ -86,7 +86,9 @@ function parseMatchResult(value: unknown): MatchResult | null {
     average: value.average,
     rank: value.rank,
     gameMode,
-    difficulty: gameMode === "who-said" ? value.difficulty ?? "Media" : null,
+    difficulty: gameMode === "who-said"
+      ? value.difficulty === "Fácil" ? "Fácil" : "Difícil"
+      : null,
   };
 }
 
@@ -145,9 +147,9 @@ export default function GameApp() {
   const [quoteRound, setQuoteRound] = useState<QuoteQuestion[]>([]);
   const [gameMode, setGameMode] = useState<GameMode>("classic");
   const [modeChoice, setModeChoice] = useState<GameMode | null>(null);
-  const [difficulty, setDifficulty] = useState<Difficulty>("Media");
+  const [difficulty, setDifficulty] = useState<Difficulty>("Fácil");
   const [rankingMode, setRankingMode] = useState<GameMode>("classic");
-  const [rankingDifficulty, setRankingDifficulty] = useState<Difficulty>("Media");
+  const [rankingDifficulty, setRankingDifficulty] = useState<Difficulty>("Fácil");
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [quoteAnswer, setQuoteAnswer] = useState("");
@@ -244,7 +246,7 @@ export default function GameApp() {
     go("home");
   };
 
-  const startGame = (nextCategory: string, nextMode: GameMode, nextDifficulty: Difficulty = "Media") => {
+  const startGame = (nextCategory: string, nextMode: GameMode, nextDifficulty: Difficulty = "Fácil") => {
     const round = nextMode === "classic" ? createRound(nextCategory) : [];
     setCategory(nextCategory);
     setQuestions(round);
@@ -394,7 +396,7 @@ export default function GameApp() {
           <ol>{[
             ["Juego clásico", "Elegí una categoría y clasificá cada situación como Chamuyo, Red flag o Green flag."],
             ["¿Quién lo dijo?", "Escribí quién dijo cada frase; cada respuesta cuenta una sola vez."],
-            ["Elegí dificultad", "Fácil muestra una pista; Media no muestra pistas; Difícil no muestra pistas y suma 200 puntos por acierto."],
+            ["Elegí dificultad", "Fácil muestra una pista sobre el ámbito de la frase. Difícil no muestra pistas y suma 200 puntos por acierto."],
             ["Respondé a tiempo", `Tenés ${gameDurationSeconds} segundos para toda la partida, también durante las devoluciones y sin reiniciar entre frases.`],
             ["Rankings separados", "Los puntajes se guardan por modo y, en “¿Quién lo dijo?”, también por dificultad."],
           ].map(([title, detail], index) => <li key={title}><b>{index + 1}</b><div><strong>{title}</strong><span>{detail}</span></div></li>)}</ol>
@@ -442,7 +444,7 @@ export default function GameApp() {
             <h2>Elegí la dificultad</h2>
             <div className="difficulty-options" role="group" aria-label="Dificultad">
               {difficulties.map((option) => <button type="button" key={option} className={difficulty === option ? "chosen" : ""} aria-pressed={difficulty === option} onClick={() => setDifficulty(option)}>
-                <strong>{option}</strong><small>{option === "Fácil" ? "Con pista del ámbito" : option === "Media" ? "Sin pistas · 100 puntos" : "Sin pistas · 200 puntos"}</small>
+                <strong>{option}</strong><small>{option === "Fácil" ? "Con pista del ámbito · 100 puntos" : "Sin pistas · 200 puntos"}</small>
               </button>)}
             </div>
             <button className="primary full" onClick={() => startGame(quoteGameTitle, "who-said", difficulty)}>Empezar “¿Quién lo dijo?” →</button>
@@ -539,7 +541,7 @@ export default function GameApp() {
         </div>
         <div className="rank-earned"><span aria-hidden="true">🏅</span><div><small>Rango obtenido</small><strong>{lastResult?.rank ?? rankFor(score)}</strong></div></div>
         <div className="result-actions">
-          <button className="primary" onClick={() => startGame(category, gameMode, difficulty)}>↻ Jugar de nuevo</button>
+          <button className="primary" onClick={() => { setModeChoice(null); go("mode"); }}>↻ Jugar de nuevo</button>
           <button onClick={async () => {
             try {
               await navigator.clipboard.writeText(`Hice ${lastResult?.score ?? score} puntos en Chamuyados`);

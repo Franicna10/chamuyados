@@ -22,11 +22,11 @@ Cada categoría tiene al menos diez situaciones; una ronda selecciona diez al az
 1. Armá tu perfil y elegí **Juego clásico** o **Farándula argentina: ¿quién lo dijo?**.
 2. En el juego clásico, elegí una categoría e iniciá una ronda de diez preguntas. En Farándula argentina, elegí una dificultad y escribí una respuesta por frase.
 3. Tenés **75 segundos para toda la partida**. El reloj corre también mientras leés las devoluciones y no se reinicia al cambiar de pregunta.
-4. En el juego clásico elegí Chamuyo, Red flag o Green flag: cada acierto suma 100 puntos. En ¿Quién lo dijo?, Fácil muestra una pista breve del ámbito, Media no muestra pistas y Difícil no muestra pistas y suma 200 puntos por acierto. Cada situación o frase se responde una sola vez.
+4. En el juego clásico elegí Chamuyo, Red flag o Green flag: cada acierto suma 100 puntos. En ¿Quién lo dijo?, Fácil muestra una pista breve del ámbito y Difícil no muestra pistas y suma 200 puntos por acierto. Cada situación o frase se responde una sola vez.
 5. Después de cada respuesta se muestra el resultado; en el modo de frases también se revela quién la dijo.
 6. Al completar la ronda o agotarse el tiempo, se informa el puntaje, respuestas correctas e incorrectas, preguntas sin responder, promedio de aciertos y rango.
 
-El promedio es el porcentaje de aciertos sobre las preguntas respondidas; las preguntas no respondidas se informan aparte. El ranking local, guardado en el `localStorage` del navegador actual, separa **Juego clásico** de **¿Quién lo dijo?**; este último también separa Fácil, Media y Difícil. Las partidas anteriores que no guardaban modo se conservan como Juego clásico. No es un ranking compartido entre dispositivos.
+El promedio es el porcentaje de aciertos sobre las preguntas respondidas; las preguntas no respondidas se informan aparte. El ranking local, guardado en el `localStorage` del navegador actual, separa **Juego clásico** de **¿Quién lo dijo?**; este último también separa Fácil y Difícil. Las partidas anteriores con dificultad Media se muestran dentro de Difícil y conservan sus puntajes; las partidas que no guardaban modo se conservan como Juego clásico. No es un ranking compartido entre dispositivos.
 
 ## Tecnologías
 

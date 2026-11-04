@@ -4,7 +4,7 @@
 
 “Chamuyados es un juego web sobre chamuyo, chats, primeras citas, vínculos y cultura popular argentina. En el Juego clásico hay seis categorías y se clasifican situaciones como Chamuyo, Red flag o Green flag. También está “Farándula argentina: ¿quién lo dijo?”: una ronda de diez frases en la que se escribe quién las dijo.
 
-La partida completa dura 75 segundos: el reloj sigue durante las preguntas y las devoluciones, sin reiniciarse entre frases. Farándula argentina tiene dificultad Fácil, con pista; Media, sin pista; y Difícil, sin pista y con 200 puntos por acierto. Los rankings locales están separados por modo y dificultad; las partidas antiguas quedan en Juego clásico. Al final se muestran aciertos, errores, preguntas sin responder, promedio y rango.
+La partida completa dura 75 segundos: el reloj sigue durante las preguntas y las devoluciones, sin reiniciarse entre frases. Farándula argentina tiene dos dificultades: Fácil, con pista sobre el ámbito de la frase, y Difícil, sin pista y con 200 puntos por acierto. Los rankings locales están separados por modo y dificultad; las partidas antiguas sin modo quedan en Juego clásico y las partidas con la antigua dificultad Media se muestran dentro de Difícil. Al final se muestran aciertos, errores, preguntas sin responder, promedio y rango.
 
 La aplicación está hecha con React, TypeScript, Vite y React Router. La navegación tiene rutas propias para inicio, perfil, ayuda, ranking, categorías, pregunta, devolución y resultado. La prueba externa, el despliegue en Vercel y la publicación de Instagram quedan como pasos de entrega.”
 
